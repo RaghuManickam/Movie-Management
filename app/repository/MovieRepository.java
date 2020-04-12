@@ -38,7 +38,7 @@ public class MovieRepository {
     }
 
     public List<Movie> getNotAllottedMovie(Integer MovieID) {
-        return this.wrap(entityManager -> entityManager.createQuery("select m from Movie m where m.id!=:MovieID", Movie.class).setParameter("MovieID", MovieID).getResultList());
+        return this.wrap(entityManager -> entityManager.createQuery("select m from Movie m where m.id!=:MovieID and m.isDeleted=false", Movie.class).setParameter("MovieID", MovieID).getResultList());
     }
 
     public void delete(Integer id) {

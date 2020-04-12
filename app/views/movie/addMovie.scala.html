@@ -26,7 +26,7 @@
                 @helper.inputText(movieModel("director"), Symbol("_label") -> "Enter Director", Symbol("class") -> "form-control form-control-sm")
                 @helper.inputText(movieModel("releaseDate"), Symbol("_label") -> "Enter Release Date", Symbol("class") -> "form-control form-control-sm")
                 @helper.inputText(movieModel("url"), Symbol("_label") -> "Movie Poster", Symbol("class") -> "form-control form-control-sm")
-                <input type="submit" value="@title" />
+                <button type="submit" class="btn btn-success">@title</button>
             </div>
         }
         <footer id="footer" >

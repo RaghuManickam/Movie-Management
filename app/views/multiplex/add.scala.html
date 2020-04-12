@@ -24,7 +24,7 @@
                 @helper.inputText(multipartFormData("name"), Symbol("_label") -> "Enter Multiplex Name", Symbol("class") -> "form-control form-control-sm")
                 @helper.inputText(multipartFormData("address"), Symbol("_label") -> "Enter Address", Symbol("class") -> "form-control form-control-sm")
                 @helper.inputText(multipartFormData("numberOfScreens"), Symbol("_label") -> "Enter Number of Screens", Symbol("class") -> "form-control form-control-sm")
-                <input type="submit" value="Add Multiplex" />
+                <button type="submit" class="btn btn-success">@title</button>
             </div>
         }
         <footer id="footer" >
