@@ -18,10 +18,15 @@
     </head>
     <body>
         <div class="search">
-            <h2>Search for Movie or Multiplex</h2>
-            <div class="main">
-                <input id="search" type="text" />
-                <input class="sendButton" type="submit" value="Search">
+            <h2 style="margin-bottom: 20px">Search for Movie or Multiplex</h2>
+            <div class="col-sm-4 col-sm-offset-4" style="text-align: center;
+                margin: 0 auto">
+                <div class="input-group mb-3">
+                    <input id="search" type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button id="sendButton" class="btn btn-primary" type="button">Search</button>
+                    </div>
+                </div>
             </div>
             <form>
                 <label class="radio-inline">
@@ -99,7 +104,7 @@
                 window.addEventListener("load", init, false);
 
 
-                $(".sendButton").click(function () {
+                $("#sendButton").click(function () {
                     console.log("Submitting.");
                     newMessage();
                 });
@@ -114,7 +119,7 @@
 
                 function newMessage() {
                     searchString = $("#search").val();
-                    document.getElementById("search").value="";
+                    document.getElementById("search").value = "";
                     if ($.trim(searchString) === "") {
                         return false;
                     }

@@ -1,15 +1,13 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import entity.Movie;
 
 import java.util.List;
 
 public class SearchResult {
     List<Movie> body;
-    @JsonCreator
-    public SearchResult(@JsonProperty("body")List<Movie> body) {
+
+    public SearchResult(List<Movie> body) {
         this.body = body;
     }
 
