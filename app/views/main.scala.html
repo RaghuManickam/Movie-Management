@@ -1,0 +1,134 @@
+@*
+* This template is called from the `index` template. This template
+* handles the rendering of the page header and body tags. It takes
+* two arguments, a `String` for the title of the page and an `Html`
+* object to insert into the body of the page.
+*@
+@(title: String, url: String)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        @* Here's where we render the page title `String`. *@
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/default.css")">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
+    </head>
+    <body>
+        <div class="search">
+            <h2>Search for Movie or Multiplex</h2>
+            <div class="main">
+                <input id="search" type="text" />
+                <input class="sendButton" type="submit" value="Search">
+            </div>
+            <form>
+                <label class="radio-inline">
+                    <input type="radio" name="rad" value="1" checked>Movie
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="rad" value="2">Multiplex
+                </label>
+            </form>
+        </div>
+        <div id="messageContent"></div>
+        <footer id="footer" >
+            <button type="button" class="btn btn-primary m-3" style=" width: 18rem;" onclick="location.href = '@routes.MovieController.listMovie()'">
+                Movie management
+            </button>
+            <button type="button" class="btn btn-primary m-3" style=" width: 18rem;" onclick="location.href = '@routes.MultiplexController.listMultiplex()'">
+                Multiplex management & Allocation
+            </button>
+        </footer>
+        <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>
+                var webSocket;
+                var searchString;
+
+                function init() {
+                    initWebSocket();
+                }
+
+                function initWebSocket() {
+                    webSocket = new WebSocket("@url");
+                    webSocket.onopen = onOpen;
+                    webSocket.onclose = onClose;
+                    webSocket.onmessage = onMessage;
+                    webSocket.onerror = onError;
+                }
+
+                function onOpen(evt) {
+                    writeToScreen("CONNECTED");
+                }
+
+                function onClose(evt) {
+                    writeToScreen("DISCONNECTED");
+                    appendMessageToView(":", "DISCONNECTED");
+                }
+
+                function onError(evt) {
+                    writeToScreen("ERROR: " + evt.data);
+                    writeToScreen("ERROR: " + JSON.stringify(evt));
+                }
+
+                function onMessage(evt) {
+                    var receivedData = JSON.parse(evt.data);
+                    console.log("New Data: ", receivedData);
+                    appendMessageToView("Server", receivedData.body);
+                }
+
+                function appendMessageToView(title, message) {
+                    $("#messageContent").append("<p>" + title + ": " + message + "</p>");
+                }
+
+                function writeToScreen(message) {
+                    console.log("New message: ", message);
+                }
+
+                function doSend(protocolMessage) {
+                    if (webSocket.readyState === WebSocket.OPEN) {
+                        writeToScreen("SENT: " + protocolMessage.message);
+                        webSocket.send(JSON.stringify(protocolMessage));
+                    } else {
+                        writeToScreen("Could not send data. Websocket is not open.");
+                    }
+                }
+
+                window.addEventListener("load", init, false);
+
+
+                $(".sendButton").click(function () {
+                    console.log("Submitting.");
+                    newMessage();
+                });
+
+                $(window).on("keydown", function (e) {
+                    if (e.which === 13) {
+                        console.log("Enter pressed.");
+                        newMessage();
+                        return false;
+                    }
+                });
+
+                function newMessage() {
+                    searchString = $("#search").val();
+                    document.getElementById("search").value="";
+                    if ($.trim(searchString) === "") {
+                        return false;
+                    }
+
+                    appendMessageToView("Me", searchString);
+
+                    var message = {
+                        searchString: searchString,
+                        movieOrMulti: $("input[name='rad']:checked").val()
+                    };
+                    console.log(message)
+
+                    doSend(message);
+                }
+        </script>
+    </body>
+</html>

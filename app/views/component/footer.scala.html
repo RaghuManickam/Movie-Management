@@ -1,0 +1,18 @@
+@()
+@*
+<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/default.css")">
+@main("Welcome to Play") {
+    <footer id="footer" >
+        <button type="button" class="btn btn-primary m-3" style=" width: 18rem;" onclick="location.href = '@routes.HomeController.index()'">
+            Search
+        </button>
+        <button type="button" class="btn btn-primary m-3" style=" width: 18rem;" onclick="location.href = '@routes.MovieController.listMovie()'">
+            Movie management
+        </button>
+        <button type="button" class="btn btn-primary m-3" style=" width: 18rem;" onclick="location.href = '@routes.MultiplexController.listMultiplex()'">
+            Multiplex management & Allocation
+        </button>
+
+    </footer>
+}
+    *@
