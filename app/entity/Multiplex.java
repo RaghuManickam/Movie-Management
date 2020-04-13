@@ -1,5 +1,6 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -7,8 +8,9 @@ import java.util.List;
 
 @Entity
 public class Multiplex {
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "multiplex")
     @Where(clause = "isDeleted = 'false'")
+    @JsonManagedReference
     List<Screen> screens;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

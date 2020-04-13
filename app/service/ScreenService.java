@@ -1,10 +1,11 @@
 package service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import entity.Screen;
-import model.MovieModel;
 import model.ScreenModel;
+import model.SearchItem;
 import org.modelmapper.ModelMapper;
+import repository.MovieRepository;
+import repository.MultiplexRepository;
 import repository.ScreenRepository;
 
 import javax.inject.Inject;
@@ -18,6 +19,10 @@ public class ScreenService {
     ModelMapper modelMapper;
     @Inject
     ScreenRepository screenRepository;
+    @Inject
+    MovieRepository movieRepository;
+    @Inject
+    MultiplexRepository multiplexRepository;
 
     public ScreenModel getScreenByMultiplexAndScreenNumber(Integer multiplexID, Integer screenNumber) {
         Screen screen = screenRepository.getScreenByMultiplexAndScreenNumber(multiplexID, screenNumber);
@@ -37,7 +42,11 @@ public class ScreenService {
         screenRepository.delete(movieID, multiplexID, screenNumber);
     }
 
-    public JsonNode getSearchResult(String searchString, int movieOrMulti) {
-        return screenRepository.find(searchString, movieOrMulti);
+    public List<SearchItem> getSearchResult(String searchString, int movieOrMulti) {
+        if (movieOrMulti == 1) {
+            return movieRepository.find(searchString).stream().map(m -> modelMapper.map(m, SearchItem.class)).collect(Collectors.toList());
+        } else {
+            return multiplexRepository.find(searchString).stream().map(m -> modelMapper.map(m, SearchItem.class)).collect(Collectors.toList());
+        }
     }
 }

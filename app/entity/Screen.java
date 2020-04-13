@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -10,11 +12,13 @@ public class Screen {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer ScreenNumber;
-    @OneToOne
+    @ManyToOne
     @Where(clause = "isDeleted = 'false'")
+    @JsonBackReference
     private Multiplex multiplex;
-    @OneToOne
+    @ManyToOne
     @Where(clause = "isDeleted = 'false'")
+    @JsonBackReference
     private Movie movie;
     private boolean isDeleted;
 

@@ -1,28 +1,40 @@
 package model;
 
-import entity.Movie;
-
 import java.util.List;
 
 public class SearchResult {
-    List<Movie> body;
+    private List<SearchItem> body;
+    private boolean isSuccessful;
 
-    public SearchResult(List<Movie> body) {
+    public SearchResult(List<SearchItem> body, boolean isSuccessful) {
         this.body = body;
+        this.isSuccessful = isSuccessful;
+    }
+
+    public SearchResult() {
     }
 
     @Override
     public String toString() {
         return "SearchResult{" +
                 "body=" + body +
+                ", isSuccessful=" + isSuccessful +
                 '}';
     }
 
-    public List<Movie> getBody() {
+    public List<SearchItem> getBody() {
         return body;
     }
 
-    public void setBody(List<Movie> body) {
+    public void setBody(List<SearchItem> body) {
         this.body = body;
+    }
+
+    public boolean isSuccessful() {
+        return isSuccessful;
+    }
+
+    public void setSuccessful(boolean successful) {
+        isSuccessful = successful;
     }
 }

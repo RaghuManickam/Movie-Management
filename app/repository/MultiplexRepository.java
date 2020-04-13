@@ -45,4 +45,9 @@ public class MultiplexRepository {
         this.wrap(entityManager -> entityManager.createQuery("update Multiplex m set m.isDeleted=true where m.id=" + id).executeUpdate());
     }
 
+    public List<Multiplex> find(String searchString) {
+        return this.wrap(entityManager -> entityManager.createQuery("select s from Multiplex s where lower(s.name) like lower(:searchString) and s.isDeleted=false", Multiplex.class)
+                .setParameter("searchString", "%" + searchString + "%").getResultList());
+    }
+
 }

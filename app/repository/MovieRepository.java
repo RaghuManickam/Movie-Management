@@ -50,4 +50,9 @@ public class MovieRepository {
     public Movie getByID(Integer id) {
         return this.wrap(entityManager -> entityManager.createQuery("select m from Movie m where m.id=" + id + " and m.isDeleted=false", Movie.class).getSingleResult());
     }
+
+    public List<Movie> find(String searchString) {
+        return this.wrap(entityManager -> entityManager.createQuery("select s from Movie s where lower(s.movieName) like lower(:searchString) and s.isDeleted=false", Movie.class)
+                .setParameter("searchString", "%" + searchString + "%").getResultList());
+    }
 }

@@ -1,16 +1,15 @@
 package repository;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Movie;
-import entity.Multiplex;
 import entity.Screen;
+import model.SearchItem;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.function.Function;
 
 @Singleton
@@ -54,18 +53,5 @@ public class ScreenRepository {
             }
             return screen;
         });
-    }
-
-    public JsonNode find(String searchString, int movieOrMulti) {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode responseObject;
-        if (movieOrMulti == 1) {
-            responseObject = mapper.convertValue(this.wrap(entityManager -> entityManager.createQuery("select s from Movie s where lower(s.movieName) like lower(:searchString) and s.isDeleted=false", Movie.class)
-                    .setParameter("searchString", "%" + searchString + "%").getResultList()), JsonNode.class);
-        } else {
-            responseObject = mapper.convertValue(this.wrap(entityManager -> entityManager.createQuery("select s from Multiplex s where lower(s.name) like lower(:searchString) and s.isDeleted=false", Multiplex.class)
-                    .setParameter("searchString", "%" + searchString + "%").getResultList()), JsonNode.class);
-        }
-        return responseObject;
     }
 }
