@@ -1,4 +1,4 @@
-package model;
+package jacksonModel;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -8,7 +8,7 @@ import play.data.validation.Constraints;
 import java.util.List;
 
 public class MultiplexModel {
-    @JsonBackReference(value = "multiplex")
+    @JsonManagedReference(value = "multiplex")
     List<ScreenModel> screens;
     @JsonProperty("id")
     private Integer id;

@@ -31,7 +31,7 @@ public class AllotMovieController extends Controller {
         ScreenModel screen = screenService.getScreenByMultiplexAndScreenNumber(multiplexID, screenNumber);
         if (screen == null) {
             screen = new ScreenModel();
-            screen.setMultiplex(new Multiplex(multiplexID));
+            screen.setMultiplex(new MultiplexModel(multiplexID));
             screen.setScreenNumber(screenNumber);
         }
         List<MovieModel> movieModels1 = movieService.getNotAllottedMovie(screen.getMovie() == null ? 0 : screen.getMovie().getId());
@@ -42,8 +42,8 @@ public class AllotMovieController extends Controller {
         ScreenModel screen = screenService.getScreenByMultiplexAndScreenNumber(multiplexID, screenNumber);
         if (screen == null) {
             screen = new ScreenModel();
-            screen.setMovie(new Movie(MovieID));
-            screen.setMultiplex(new Multiplex(multiplexID));
+            screen.setMovie(new MovieModel(MovieID));
+            screen.setMultiplex(new MultiplexModel(multiplexID));
             screen.setScreenNumber(screenNumber);
             screen.setDeleted(false);
         }

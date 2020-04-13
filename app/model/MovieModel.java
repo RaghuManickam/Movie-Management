@@ -1,23 +1,35 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import play.data.validation.Constraints;
 
 import java.util.List;
 
 public class MovieModel {
+    @JsonBackReference(value = "movie")
     List<ScreenModel> screens;
+    @JsonProperty("id")
     private Integer id;
     @Constraints.Required(message = "Movie name not provided")
+    @JsonProperty("movieName")
     private String movieName;
+    @JsonProperty("url")
     private String url;
     @Constraints.Required(message = "category not provided")
+    @JsonProperty("category")
     private String category;
     @Constraints.Required(message = "enter the name of producer")
+    @JsonProperty("producer")
     private String producer;
     @Constraints.Required(message = "enter the name of director")
+    @JsonProperty("director")
     private String director;
     @Constraints.Required(message = "Please provide the release date")
+    @JsonProperty("releaseDate")
     private String releaseDate;
+    @JsonProperty("isDeleted")
     private boolean isDeleted;
 
     public MovieModel(Integer id) {

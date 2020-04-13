@@ -33,17 +33,6 @@ public class Screen {
         this.isDeleted = isDeleted;
     }
 
-    @Override
-    public String toString() {
-        return "Screen{" +
-                "id=" + id +
-                ", ScreenNumber=" + ScreenNumber +
-                ", multiplex=" + multiplex +
-                ", movie=" + movie +
-                ", isDeleted=" + isDeleted +
-                '}';
-    }
-
     public Integer getId() {
         return id;
     }

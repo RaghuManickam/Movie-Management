@@ -10,8 +10,8 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.stream.Materializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jacksonModel.SearchMessage;
 import model.SearchModel;
-import model.SearchResult;
 
 import java.util.concurrent.CompletionStage;
 
@@ -40,17 +40,33 @@ public class SearchActor extends AbstractActor {
         SearchModel searchModel = mapper1.convertValue(jsonNode, SearchModel.class);
         CompletionStage<HttpResponse> responseFuture = this.callRestApi(searchModel.getSearchString(), searchModel.getMovieOrMulti());
         responseFuture.thenCompose(this::consumeHttpResponse)
-                .thenAccept(SearchResult -> {
-                    System.out.println("DATA : " + SearchResult);
+                .thenAccept(searchMessage -> {
+                    System.out.println("DATA : " + searchMessage);
                     ObjectMapper mapper = new ObjectMapper();
-                    JsonNode json = mapper.convertValue(SearchResult, JsonNode.class);
+                    JsonNode json = mapper.valueToTree(searchMessage);
+                    System.out.println(json.toPrettyString());
                     this.guardian.tell(json, getSelf());
-                });
+                }).exceptionally(t -> {
+            t.printStackTrace();
+            return null;
+        });
     }
 
-    private CompletionStage<SearchResult> consumeHttpResponse(HttpResponse httpResponse) {
+    private CompletionStage<SearchMessage> consumeHttpResponse(HttpResponse httpResponse) {
         Materializer materializer = Materializer.matFromSystem(getContext().getSystem());
-        return Jackson.unmarshaller(SearchResult.class)
+        /*HttpEntity.Strict strict = null;
+        try {
+            strict = httpResponse.entity().toStrict(1000, materializer).toCompletableFuture().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        String body = strict.getData().utf8String();
+        System.out.println("Body" + body);*/
+
+        ObjectMapper mapper = new ObjectMapper();
+        return Jackson.unmarshaller(mapper, SearchMessage.class)
                 .unmarshal(httpResponse.entity(), materializer)
                 .thenApply(messageModel -> {
                     this.discardEntity(httpResponse, materializer);

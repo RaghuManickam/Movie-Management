@@ -1,7 +1,6 @@
-package model;
+package jacksonModel;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ScreenModel {
@@ -10,10 +9,10 @@ public class ScreenModel {
     @JsonProperty("ScreenNumber")
     private Integer ScreenNumber;
     @JsonProperty("multiplex")
-    @JsonManagedReference(value = "multiplex")
+    @JsonBackReference(value = "multiplex")
     private MultiplexModel multiplex;
     @JsonProperty("movie")
-    @JsonManagedReference(value = "movie")
+    @JsonBackReference(value = "movie")
     private MovieModel movie;
     @JsonProperty("isDeleted")
     private boolean isDeleted;

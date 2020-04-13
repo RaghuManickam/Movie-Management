@@ -34,18 +34,6 @@ public class Multiplex {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "Multiplex{" +
-                "screens=" + screens +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", numberOfScreens=" + numberOfScreens +
-                ", isDeleted=" + isDeleted +
-                '}';
-    }
-
     public List<Screen> getScreens() {
         return screens;
     }

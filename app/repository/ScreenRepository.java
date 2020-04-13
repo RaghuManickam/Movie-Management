@@ -1,15 +1,12 @@
 package repository;
 
-import entity.Movie;
 import entity.Screen;
-import model.SearchItem;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.function.Function;
 
 @Singleton

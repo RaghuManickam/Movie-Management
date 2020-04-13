@@ -38,6 +38,7 @@
             </form>
         </div>
         <div id="messageContent"></div>
+
         <footer id="footer" >
             <button type="button" class="btn btn-primary m-3" style=" width: 18rem;" onclick="location.href = '@routes.MovieController.listMovie()'">
                 Movie management
@@ -51,6 +52,7 @@
         <script>
                 var webSocket;
                 var searchString;
+                var message;
 
                 function init() {
                     initWebSocket();
@@ -81,11 +83,32 @@
                 function onMessage(evt) {
                     var receivedData = JSON.parse(evt.data);
                     console.log("New Data: ", receivedData);
-                    appendMessageToView("Server", receivedData.body);
+                    listData(receivedData.body)
+                    /*appendMessageToView("Server", receivedData.body[0].movieName);*/
                 }
 
                 function appendMessageToView(title, message) {
                     $("#messageContent").append("<p>" + title + ": " + message + "</p>");
+                }
+
+                function listData(data) {
+                    for (i in data) {
+                        if (message.movieOrMulti === "2") {
+                            $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-body\"><h5 class=\"card-title\">Name of the Multiplex : " + data[i].name + "</h5><p class=\"card-text\">Address : " + data[i].address + "</p><p class=\"card-text\">Number of Screens : " + data[i].numberOfScreens + "</p><p class=\"card-text\">Now Screening : " + sublist(data[i].screens) + "</p></div></div>");
+                        } else {
+                            $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-body\"><h5 class=\"card-title\">Movie Name : " + data[i].name + "</h5><p class=\"card-text\">Directed By : " + data[i].director + "</p><p class=\"card-text\">Release Date : " + data[i].releaseDate + "</p>" + sublist(data[i].screens) + "</div></div>");
+                        }
+
+                    }
+                }
+
+                function sublist(screenModel) {
+                    /*var screen="";
+                    for (i in screenModel){
+                        console.log(screenModel[i].movie);
+                        screen=screen+"Screen Number -> "+screenModel[i].screenNumber+" Movie -> "+screenModel[i].movie.movieName+",";
+                    }*/
+                    return "";
                 }
 
                 function writeToScreen(message) {
@@ -124,9 +147,9 @@
                         return false;
                     }
 
-                    appendMessageToView("Me", searchString);
+                    appendMessageToView("Search Result for ", searchString);
 
-                    var message = {
+                    message = {
                         searchString: searchString,
                         movieOrMulti: $("input[name='rad']:checked").val()
                     };

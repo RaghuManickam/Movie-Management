@@ -1,38 +1,42 @@
-package model;
+package jacksonModel;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import play.data.validation.Constraints;
 
 import java.util.List;
 
-public class SearchItem {
-    @JsonProperty("screens")
+public class MovieModel {
+    @JsonManagedReference(value = "movie")
     List<ScreenModel> screens;
     @JsonProperty("id")
     private Integer id;
+    @Constraints.Required(message = "Movie name not provided")
     @JsonProperty("movieName")
     private String movieName;
     @JsonProperty("url")
     private String url;
+    @Constraints.Required(message = "category not provided")
     @JsonProperty("category")
     private String category;
+    @Constraints.Required(message = "enter the name of producer")
     @JsonProperty("producer")
     private String producer;
+    @Constraints.Required(message = "enter the name of director")
     @JsonProperty("director")
     private String director;
+    @Constraints.Required(message = "Please provide the release date")
     @JsonProperty("releaseDate")
     private String releaseDate;
     @JsonProperty("isDeleted")
     private boolean isDeleted;
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("address")
-    private String address;
-    @JsonProperty("numberOfScreens")
-    private Integer numberOfScreens;
-    public SearchItem() {
+
+    public MovieModel(Integer id) {
+        this.id = id;
     }
 
-    public SearchItem(List<ScreenModel> screens, Integer id, String movieName, String url, String category, String producer, String director, String releaseDate, boolean isDeleted, String name, String address, Integer numberOfScreens) {
+    public MovieModel(List<ScreenModel> screens, Integer id, @Constraints.Required(message = "Movie name not provided") String movieName, String url, @Constraints.Required(message = "category not provided") String category, @Constraints.Required(message = "enter the name of producer") String producer, @Constraints.Required(message = "enter the name of director") String director, @Constraints.Required(message = "Please provide the release date") String releaseDate, boolean isDeleted) {
         this.screens = screens;
         this.id = id;
         this.movieName = movieName;
@@ -42,14 +46,14 @@ public class SearchItem {
         this.director = director;
         this.releaseDate = releaseDate;
         this.isDeleted = isDeleted;
-        this.name = name;
-        this.address = address;
-        this.numberOfScreens = numberOfScreens;
+    }
+
+    public MovieModel() {
     }
 
     @Override
     public String toString() {
-        return "SearchItem{" +
+        return "MovieModel{" +
                 "screens=" + screens +
                 ", id=" + id +
                 ", movieName='" + movieName + '\'' +
@@ -59,9 +63,6 @@ public class SearchItem {
                 ", director='" + director + '\'' +
                 ", releaseDate='" + releaseDate + '\'' +
                 ", isDeleted=" + isDeleted +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", numberOfScreens=" + numberOfScreens +
                 '}';
     }
 
@@ -71,6 +72,14 @@ public class SearchItem {
 
     public void setScreens(List<ScreenModel> screens) {
         this.screens = screens;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public Integer getId() {
@@ -129,35 +138,4 @@ public class SearchItem {
         this.releaseDate = releaseDate;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Integer getNumberOfScreens() {
-        return numberOfScreens;
-    }
-
-    public void setNumberOfScreens(Integer numberOfScreens) {
-        this.numberOfScreens = numberOfScreens;
-    }
 }

@@ -51,21 +51,6 @@ public class Movie {
         this.screens = screens;
     }
 
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "screens=" + screens +
-                ", id=" + id +
-                ", movieName='" + movieName + '\'' +
-                ", url='" + url + '\'' +
-                ", category='" + category + '\'' +
-                ", producer='" + producer + '\'' +
-                ", director='" + director + '\'' +
-                ", releaseDate='" + releaseDate + '\'' +
-                ", isDeleted=" + isDeleted +
-                '}';
-    }
-
     public Integer getId() {
         return id;
     }
