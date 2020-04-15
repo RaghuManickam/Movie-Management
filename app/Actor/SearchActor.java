@@ -1,19 +1,21 @@
 package Actor;
 
+import RestDTO.SearchMessage;
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.marshallers.jackson.Jackson;
+import akka.http.javadsl.model.HttpEntity;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.Materializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jacksonModel.SearchMessage;
-import model.SearchModel;
+import RestDTO.SearchModel;
 
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
 public class SearchActor extends AbstractActor {
 
@@ -54,7 +56,7 @@ public class SearchActor extends AbstractActor {
 
     private CompletionStage<SearchMessage> consumeHttpResponse(HttpResponse httpResponse) {
         Materializer materializer = Materializer.matFromSystem(getContext().getSystem());
-        /*HttpEntity.Strict strict = null;
+        HttpEntity.Strict strict = null;
         try {
             strict = httpResponse.entity().toStrict(1000, materializer).toCompletableFuture().get();
         } catch (InterruptedException e) {
@@ -63,7 +65,7 @@ public class SearchActor extends AbstractActor {
             e.printStackTrace();
         }
         String body = strict.getData().utf8String();
-        System.out.println("Body" + body);*/
+        System.out.println("Body" + body);
 
         ObjectMapper mapper = new ObjectMapper();
         return Jackson.unmarshaller(mapper, SearchMessage.class)

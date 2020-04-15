@@ -1,8 +1,10 @@
 package service;
 
+import RestDTO.ScreenDTO;
+import RestDTO.SearchItem;
+import entity.Movie;
 import entity.Screen;
 import model.ScreenModel;
-import model.SearchItem;
 import org.modelmapper.ModelMapper;
 import repository.MovieRepository;
 import repository.MultiplexRepository;
@@ -44,9 +46,23 @@ public class ScreenService {
 
     public List<SearchItem> getSearchResult(String searchString, int movieOrMulti) {
         if (movieOrMulti == 1) {
-            return movieRepository.find(searchString).stream().map(m -> modelMapper.map(m, SearchItem.class)).collect(Collectors.toList());
+            return movieRepository.find(searchString).stream().map(m -> {
+                mapp(m);
+                return  modelMapper.map(m, SearchItem.class);
+            }).collect(Collectors.toList());
         } else {
             return multiplexRepository.find(searchString).stream().map(m -> modelMapper.map(m, SearchItem.class)).collect(Collectors.toList());
         }
     }
+
+    public SearchItem mapp(Movie movie) {
+        SearchItem searchItem = modelMapper.map(movie, SearchItem.class);
+        if (searchItem != null && movie != null && movie.getScreens() != null) {
+            List<ScreenDTO> screenDTOS = movie.getScreens().stream().map(m -> modelMapper.map(movie, ScreenDTO.class)).collect(Collectors.toList());
+            searchItem.setScreens(screenDTOS);
+        }
+        return searchItem;
+
+    }
+
 }

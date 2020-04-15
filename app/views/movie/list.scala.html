@@ -12,26 +12,26 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/default.css")">
         <title>Movies</title>
     </head>
-    <body>
+    <searchItem>
         <div class="card-columns">
             <ul style="list-style-type: none;">
-            @for(movie <- movies) {
+            @for(movieDTO <- movies) {
                 <li>
                     <div class="card m-2" style="width: 18rem;">
-                        <div class="card-header text-center"><h5 class="card-title">@movie.getMovieName</h5></div>
-                        <img src=@movie.getUrl class="card-img-top" onerror="this.src = 'https://www.washingtonpost.com/graphics/2019/entertainment/oscar-nominees-movie-poster-design/img/black-panther-web.jpg'" height="150px" width="150px">
-                        <div class="card-body">
-                            <p class="card-text">Directed By : @movie.getDirector</p>
-                            <p class="card-text">Producer By : @movie.getProducer</p>
-                            <p class="card-text">Movie Category :@movie.getCategory</p>
-                            <p class="card-text">Release Date : @movie.getReleaseDate</p>
+                        <div class="card-header text-center"><h5 class="card-title">@movieDTO.getMovieName</h5></div>
+                        <img src=@movieDTO.getUrl class="card-img-top" onerror="this.src = 'https://www.washingtonpost.com/graphics/2019/entertainment/oscar-nominees-movieDTO-poster-design/img/black-panther-web.jpg'" height="150px" width="150px">
+                        <div class="card-searchItem">
+                            <p class="card-text">Directed By : @movieDTO.getDirector</p>
+                            <p class="card-text">Producer By : @movieDTO.getProducer</p>
+                            <p class="card-text">Movie Category :@movieDTO.getCategory</p>
+                            <p class="card-text">Release Date : @movieDTO.getReleaseDate</p>
                         </div>
                         <div class="card-footer">
-                            <a href='@routes.MovieController.editMovie(movie.getId)' class="btn btn-primary a-btn-slide-text">
+                            <a href='@routes.MovieController.editMovie(movieDTO.getId)' class="btn btn-primary a-btn-slide-text">
                                 <span class="glyphicon glyphicon-warning" aria-hidden="true"></span>
                                 <span><strong>Edit</strong></span>
                             </a>
-                            <a href='@routes.MovieController.delete(movie.getId)' class="btn btn-danger a-btn-slide-text">
+                            <a href='@routes.MovieController.delete(movieDTO.getId)' class="btn btn-danger a-btn-slide-text">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 <span><strong>Delete</strong></span>
                             </a>
@@ -52,5 +52,5 @@
                 Multiplex management & Allocation
             </button>
         </footer>
-    </body>
+    </searchItem>
 </html>

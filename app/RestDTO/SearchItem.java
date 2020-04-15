@@ -1,63 +1,47 @@
-package model;
+package RestDTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 public class SearchItem {
+
     @JsonProperty("screens")
-    List<ScreenModel> screens;
+    private List<ScreenDTO> screens = null;
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("movieName")
-    private String movieName;
+    private Object movieName;
     @JsonProperty("url")
-    private String url;
+    private Object url;
     @JsonProperty("category")
-    private String category;
+    private Object category;
     @JsonProperty("producer")
-    private String producer;
+    private Object producer;
     @JsonProperty("director")
-    private String director;
+    private Object director;
     @JsonProperty("releaseDate")
-    private String releaseDate;
+    private Object releaseDate;
     @JsonProperty("isDeleted")
-    private boolean isDeleted;
+    private Boolean isDeleted;
     @JsonProperty("name")
     private String name;
     @JsonProperty("address")
     private String address;
     @JsonProperty("numberOfScreens")
     private Integer numberOfScreens;
-    public SearchItem() {
-    }
-
-    public SearchItem(List<ScreenModel> screens, Integer id, String movieName, String url, String category, String producer, String director, String releaseDate, boolean isDeleted, String name, String address, Integer numberOfScreens) {
-        this.screens = screens;
-        this.id = id;
-        this.movieName = movieName;
-        this.url = url;
-        this.category = category;
-        this.producer = producer;
-        this.director = director;
-        this.releaseDate = releaseDate;
-        this.isDeleted = isDeleted;
-        this.name = name;
-        this.address = address;
-        this.numberOfScreens = numberOfScreens;
-    }
 
     @Override
     public String toString() {
         return "SearchItem{" +
                 "screens=" + screens +
                 ", id=" + id +
-                ", movieName='" + movieName + '\'' +
-                ", url='" + url + '\'' +
-                ", category='" + category + '\'' +
-                ", producer='" + producer + '\'' +
-                ", director='" + director + '\'' +
-                ", releaseDate='" + releaseDate + '\'' +
+                ", movieName=" + movieName +
+                ", url=" + url +
+                ", category=" + category +
+                ", producer=" + producer +
+                ", director=" + director +
+                ", releaseDate=" + releaseDate +
                 ", isDeleted=" + isDeleted +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
@@ -65,99 +49,124 @@ public class SearchItem {
                 '}';
     }
 
-    public List<ScreenModel> getScreens() {
+    @JsonProperty("screens")
+    public List<ScreenDTO> getScreens() {
         return screens;
     }
 
-    public void setScreens(List<ScreenModel> screens) {
+    @JsonProperty("screens")
+    public void setScreens(List<ScreenDTO> screens) {
         this.screens = screens;
     }
 
+    @JsonProperty("id")
     public Integer getId() {
         return id;
     }
 
+    @JsonProperty("id")
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getMovieName() {
+    @JsonProperty("movieName")
+    public Object getMovieName() {
         return movieName;
     }
 
-    public void setMovieName(String movieName) {
+    @JsonProperty("movieName")
+    public void setMovieName(Object movieName) {
         this.movieName = movieName;
     }
 
-    public String getUrl() {
+    @JsonProperty("url")
+    public Object getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    @JsonProperty("url")
+    public void setUrl(Object url) {
         this.url = url;
     }
 
-    public String getCategory() {
+    @JsonProperty("category")
+    public Object getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    @JsonProperty("category")
+    public void setCategory(Object category) {
         this.category = category;
     }
 
-    public String getProducer() {
+    @JsonProperty("producer")
+    public Object getProducer() {
         return producer;
     }
 
-    public void setProducer(String producer) {
+    @JsonProperty("producer")
+    public void setProducer(Object producer) {
         this.producer = producer;
     }
 
-    public String getDirector() {
+    @JsonProperty("director")
+    public Object getDirector() {
         return director;
     }
 
-    public void setDirector(String director) {
+    @JsonProperty("director")
+    public void setDirector(Object director) {
         this.director = director;
     }
 
-    public String getReleaseDate() {
+    @JsonProperty("releaseDate")
+    public Object getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    @JsonProperty("releaseDate")
+    public void setReleaseDate(Object releaseDate) {
         this.releaseDate = releaseDate;
     }
 
-    public boolean isDeleted() {
+    @JsonProperty("isDeleted")
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    @JsonProperty("isDeleted")
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
 
+    @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
     }
 
+    @JsonProperty("address")
     public String getAddress() {
         return address;
     }
 
+    @JsonProperty("address")
     public void setAddress(String address) {
         this.address = address;
     }
 
+    @JsonProperty("numberOfScreens")
     public Integer getNumberOfScreens() {
         return numberOfScreens;
     }
 
+    @JsonProperty("numberOfScreens")
     public void setNumberOfScreens(Integer numberOfScreens) {
         this.numberOfScreens = numberOfScreens;
     }
+
 }

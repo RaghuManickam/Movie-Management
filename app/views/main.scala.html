@@ -1,8 +1,8 @@
 @*
 * This template is called from the `index` template. This template
-* handles the rendering of the page header and body tags. It takes
+* handles the rendering of the page header and searchItem tags. It takes
 * two arguments, a `String` for the title of the page and an `Html`
-* object to insert into the body of the page.
+* object to insert into the searchItem of the page.
 *@
 @(title: String, url: String)
 
@@ -16,7 +16,7 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/default.css")">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
     </head>
-    <body>
+    <searchItem>
         <div class="search">
             <h2 style="margin-bottom: 20px">Search for Movie or Multiplex</h2>
             <div class="col-sm-4 col-sm-offset-4" style="text-align: center;
@@ -84,7 +84,6 @@
                     var receivedData = JSON.parse(evt.data);
                     console.log("New Data: ", receivedData);
                     listData(receivedData.body)
-                    /*appendMessageToView("Server", receivedData.body[0].movieName);*/
                 }
 
                 function appendMessageToView(title, message) {
@@ -94,21 +93,28 @@
                 function listData(data) {
                     for (i in data) {
                         if (message.movieOrMulti === "2") {
-                            $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-body\"><h5 class=\"card-title\">Name of the Multiplex : " + data[i].name + "</h5><p class=\"card-text\">Address : " + data[i].address + "</p><p class=\"card-text\">Number of Screens : " + data[i].numberOfScreens + "</p><p class=\"card-text\">Now Screening : " + sublist(data[i].screens) + "</p></div></div>");
+                            $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-searchItem\"><h5 class=\"card-title\">Name of the Multiplex : " + data[i].name + "</h5><p class=\"card-text\">Address : " + data[i].address + "</p><p class=\"card-text\">Number of Screens : " + data[i].numberOfScreens + "</p><p class=\"card-text\">Now Screening : " + sublistMult(data[i].screens) + "</p></div></div>");
                         } else {
-                            $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-body\"><h5 class=\"card-title\">Movie Name : " + data[i].name + "</h5><p class=\"card-text\">Directed By : " + data[i].director + "</p><p class=\"card-text\">Release Date : " + data[i].releaseDate + "</p>" + sublist(data[i].screens) + "</div></div>");
+                            $("#messageContent").append("<div class=\"card mb-3\"><div class=\"card-searchItem\"><h5 class=\"card-title\">Movie Name : " + data[i].name + "</h5><p class=\"card-text\">Directed By : " + data[i].director + "</p><p class=\"card-text\">Release Date : " + data[i].releaseDate + "\"</p><p class=\"card-text\">Now Screening : " + sublistMovie(data[i].screens) + "</p></div></div>");
                         }
 
                     }
                 }
 
-                function sublist(screenModel) {
-                    /*var screen="";
-                    for (i in screenModel){
-                        console.log(screenModel[i].movie);
-                        screen=screen+"Screen Number -> "+screenModel[i].screenNumber+" Movie -> "+screenModel[i].movie.movieName+",";
-                    }*/
-                    return "";
+                function sublistMult(screenModel) {
+                    var screen = "";
+                    for (i in screenModel) {
+                        screen = (screenModel[i].movie.movieName + " ( screen " + screenModel[i].ScreenNumber + " )") + (screen === "" ? screen : "," + screen) ;
+                    }
+                    return screen;
+                }
+
+                function sublistMovie(screenModel) {
+                    var screen = "";
+                    for (i in screenModel) {
+                        screen = (screenModel[i].multiplex.name + " ( screen " + screenModel[i].ScreenNumber + " )") + (screen === "" ? screen : "," + screen) ;
+                    }
+                    return screen;
                 }
 
                 function writeToScreen(message) {
@@ -146,9 +152,8 @@
                     if ($.trim(searchString) === "") {
                         return false;
                     }
-
+                    $("#messageContent").empty()
                     appendMessageToView("Search Result for ", searchString);
-
                     message = {
                         searchString: searchString,
                         movieOrMulti: $("input[name='rad']:checked").val()
@@ -158,5 +163,5 @@
                     doSend(message);
                 }
         </script>
-    </body>
+    </searchItem>
 </html>

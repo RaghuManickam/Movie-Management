@@ -13,27 +13,27 @@
 
         <title>Multiplex</title>
     </head>
-    <body>
+    <searchItem>
         <div class="card-columns">
             <ul style="list-style-type: none;">
-            @for(multiplex <- multiplexModel) {
+            @for(multiplexDTO <- multiplexModel) {
                 <li>
                     <div class="card m-2" style="width: 20rem;">
-                        <div class="card-header text-center"><h5 class="card-title">@multiplex.getName</h5></div>
-                        <div class="card-body">
-                            <p class="card-text">Address : @multiplex.getAddress</p>
-                            <p class="card-text">Number Of Screen : @multiplex.getNumberOfScreens</p>
+                        <div class="card-header text-center"><h5 class="card-title">@multiplexDTO.getName</h5></div>
+                        <div class="card-searchItem">
+                            <p class="card-text">Address : @multiplexDTO.getAddress</p>
+                            <p class="card-text">Number Of Screen : @multiplexDTO.getNumberOfScreens</p>
                         </div>
                         <div class="card-footer">
-                            <a href="@routes.AllotMovieController.listScreen(multiplex.getId)" class="btn btn-success a-btn-slide-text">
+                            <a href="@routes.AllotMovieController.listScreen(multiplexDTO.getId)" class="btn btn-success a-btn-slide-text">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 <span><strong>Allot Movie</strong></span>
                             </a>
-                            <a href='@routes.MultiplexController.editMultiplex(multiplex.getId)' class="btn btn-primary a-btn-slide-text">
+                            <a href='@routes.MultiplexController.editMultiplex(multiplexDTO.getId)' class="btn btn-primary a-btn-slide-text">
                                 <span class="glyphicon glyphicon-warning" aria-hidden="true"></span>
                                 <span><strong>Edit</strong></span>
                             </a>
-                            <a href='@routes.MultiplexController.delete(multiplex.getId)' class="btn btn-danger a-btn-slide-text">
+                            <a href='@routes.MultiplexController.delete(multiplexDTO.getId)' class="btn btn-danger a-btn-slide-text">
                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 <span><strong>Delete</strong></span>
                             </a>
@@ -53,5 +53,5 @@
                 Movie management
             </button>
         </footer>
-    </body>
+    </searchItem>
 </html>

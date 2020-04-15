@@ -1,5 +1,5 @@
 @import model.MultiplexModel
-@(multiplex: MultiplexModel)
+@(multiplexDTO: MultiplexModel)
 <!doctype html>
 <html lang="en">
     <head>
@@ -13,13 +13,13 @@
 
         <title>Movies</title>
     </head>
-    <body>
+    <searchItem>
         <div class="card-columns">
             <ul style="list-style-type: none;">
-                @for(s <- 1 to multiplex.getNumberOfScreens) {
+                @for(s <- 1 to multiplexDTO.getNumberOfScreens) {
                     <li>
-                        <div class="card m-2" style="width: 12rem;" onclick="location.href = '@routes.AllotMovieController.allotList(multiplex.getId,s)'">
-                            <div class="card-body">
+                        <div class="card m-2" style="width: 12rem;" onclick="location.href = '@routes.AllotMovieController.allotList(multiplexDTO.getId,s)'">
+                            <div class="card-searchItem">
                                 <h3>Screen @s</h3>
                             </div>
                         </div>
@@ -38,5 +38,5 @@
             </button>
 
         </footer>
-    </body>
+    </searchItem>
 </html>

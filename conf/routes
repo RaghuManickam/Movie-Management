@@ -4,17 +4,17 @@
 
 # An example controller showing a sample home page
 GET         /                                 controllers.HomeController.index(request:Request)
-GET         /movie                            controllers.MovieController.listMovie(request:Request)
-GET         /movie/create                     controllers.MovieController.createMovie(request:Request)
-POST        /movie/add                        controllers.MovieController.addMovie(request:Request,id:Integer)
-GET         /movie/editMovie                  controllers.MovieController.editMovie(request:Request,ID:Integer)
-GET         /movie/delete                     controllers.MovieController.delete(request:Request,id:Integer)
+GET         /movieDTO                            controllers.MovieController.listMovie(request:Request)
+GET         /movieDTO/create                     controllers.MovieController.createMovie(request:Request)
+POST        /movieDTO/add                        controllers.MovieController.addMovie(request:Request,id:Integer)
+GET         /movieDTO/editMovie                  controllers.MovieController.editMovie(request:Request,ID:Integer)
+GET         /movieDTO/delete                     controllers.MovieController.delete(request:Request,id:Integer)
 
-GET         /multiplex                        controllers.MultiplexController.listMultiplex(request:Request)
-GET         /multiplex/createMultiplex        controllers.MultiplexController.createMultiplex(request:Request)
-POST        /multiplex/addMultiplex           controllers.MultiplexController.addMultiplex(request:Request,id:Integer)
-GET         /multiplex/edit                   controllers.MultiplexController.editMultiplex(request:Request,id:Integer)
-GET         /multiplex/delete                 controllers.MultiplexController.delete(request:Request,id:Integer)
+GET         /multiplexDTO                        controllers.MultiplexController.listMultiplex(request:Request)
+GET         /multiplexDTO/createMultiplex        controllers.MultiplexController.createMultiplex(request:Request)
+POST        /multiplexDTO/addMultiplex           controllers.MultiplexController.addMultiplex(request:Request,id:Integer)
+GET         /multiplexDTO/edit                   controllers.MultiplexController.editMultiplex(request:Request,id:Integer)
+GET         /multiplexDTO/delete                 controllers.MultiplexController.delete(request:Request,id:Integer)
 
 GET         /listScreen                       controllers.AllotMovieController.listScreen(request:Request, multiplexID:Integer)
 GET         /allot                            controllers.AllotMovieController.allot(request:Request,movieID:Integer, multiplexID:Integer,screenNumber:Integer)

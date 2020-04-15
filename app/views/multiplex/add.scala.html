@@ -17,7 +17,7 @@
 
         <title>@title</title>
     </head>
-    <body>
+    <searchItem>
         @helper.form(action = routes.MultiplexController.addMultiplex(ID)) {
             <div class="form-group w-25 m-2">
                 @helper.CSRF.formField
@@ -39,5 +39,5 @@
             </button>
 
         </footer>
-    </body>
+    </searchItem>
 </html>
